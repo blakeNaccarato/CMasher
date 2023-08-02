@@ -213,9 +213,9 @@ class Test_import_cmaps(object):
     @pytest.mark.parametrize('cm_name', cm_names)
     def test_CMasher_cmaps(self, cm_name):
         # Check if provided cm_name is registered in CMasher and MPL
-        for name in (cm_name, cm_name+'_r'):
+        for name in (cm_name, f'{cm_name}_r'):
             cmr_cmap = getattr(cmr, name)
-            mpl_cmap = mplcm.get_cmap('cmr.'+name)
+            mpl_cmap = mplcm.get_cmap(f'cmr.{name}')
             assert isinstance(cmr_cmap, LC)
             assert isinstance(mpl_cmap, LC)
             assert getattr(cmrcm, name) is cmr_cmap
@@ -243,8 +243,8 @@ class Test_import_cmaps(object):
     def test_cyclic_cmap(self):
         name = 'cyclic'
         import_cmaps(path.join(dirpath, 'data/cm_{0}.txt'.format(name)))
-        for cmap in [name, name+'_r', name+'_s', name+'_s_r']:
-            assert 'cmr.'+cmap in plt.colormaps()
+        for cmap in [name, f'{name}_r', f'{name}_s', f'{name}_s_r']:
+            assert f'cmr.{cmap}' in plt.colormaps()
             assert getattr(cmrcm, cmap, None) is not None
             assert cmap in cmrcm.cmap_d
             assert cmap in cmrcm.cmap_cd['cyclic']

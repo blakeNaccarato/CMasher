@@ -6,6 +6,7 @@ Setup file for the *CMasher* package.
 """
 
 
+
 # %% IMPORTS
 # Built-in imports
 from codecs import open
@@ -29,7 +30,7 @@ with open('cmasher/__version__.py', 'r') as f:
     vf = f.read()
 
 # Obtain version from read-in __version__.py file
-version = re.search(r"^_*version_* = ['\"]([^'\"]*)['\"]", vf, re.M).group(1)
+version = re.search(r"^_*version_* = ['\"]([^'\"]*)['\"]", vf, re.M)[1]
 
 # Setup function declaration
 setup(name="cmasher",

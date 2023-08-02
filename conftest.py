@@ -14,7 +14,7 @@ mpl.use('Agg')
 # This makes the pytest report header mention the tested CMasher version
 def pytest_report_header(config):
     from cmasher.__version__ import __version__
-    return("CMasher: %s" % (__version__))
+    return f"CMasher: {__version__}"
 
 
 # %% PYTEST SETTINGS

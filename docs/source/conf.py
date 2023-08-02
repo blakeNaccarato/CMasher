@@ -32,7 +32,7 @@ with open('../../cmasher/__version__.py', 'r') as f:
     vf = f.read()
 
 # Obtain version from read-in __version__.py file
-version = re.search(r"^_*version_* = ['\"]([^'\"]*)['\"]", vf, re.M).group(1)
+version = re.search(r"^_*version_* = ['\"]([^'\"]*)['\"]", vf, re.M)[1]
 
 
 # -- General configuration ---------------------------------------------------
@@ -138,7 +138,7 @@ html_theme_options = {
 }
 
 # Title formatting
-html_title = "%s documentation" % (project)
+html_title = f"{project} documentation"
 
 # Date formatting
 html_last_updated_fmt = '%a %d %b %Y'

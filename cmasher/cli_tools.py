@@ -80,10 +80,7 @@ class HelpFormatterWithSubCommands(argparse.ArgumentDefaultsHelpFormatter):
         parts = [name, desc_lines.pop(0), '\n']
 
         # Loop over all remaining desc_lines
-        for line in desc_lines:
-            # Format and add to parts
-            parts.append("%s%s\n" % (' '*help_position, line))
-
+        parts.extend("%s%s\n" % (' '*help_position, line) for line in desc_lines)
         # Convert to a single string and return
         return(''.join(parts))
 
@@ -153,7 +150,7 @@ def cli_cmap_view():
     import_cmap_pkgs()
 
     # View cmap
-    save = ARGS.cmap+'.png' if ARGS.save is True else ARGS.save
+    save = f'{ARGS.cmap}.png' if ARGS.save is True else ARGS.save
     cmr.view_cmap(get_cmap(ARGS.cmap), savefig=save, show_test=ARGS.test,
                   show_grayscale=ARGS.gs)
 
@@ -338,9 +335,8 @@ def main():
     # OPTIONAL ARGUMENTS
     # Add 'version' argument
     parser.add_argument(
-        '-v', '--version',
-        action='version',
-        version="CMasher v{}".format(__version__))
+        '-v', '--version', action='version', version=f"CMasher v{__version__}"
+    )
 
     # Create a cmap parser for several commands
     cmap_parent_parser = argparse.ArgumentParser(add_help=False)

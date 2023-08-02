@@ -69,8 +69,7 @@ def update_tableau_pref_file(dirname: str = '.') -> None:
         colors_hex = cmr.take_cmap_colors(cmap, N=None, return_fmt='hex')
 
         # Create a list with all color representations in HEX
-        colors_list = list(map(lambda x: "<color>%s</color>" % (x),
-                               colors_hex))
+        colors_list = list(map(lambda x: f"<color>{x}</color>", colors_hex))
 
         # Combine all these colors into a single string
         colors_str = '\n'.join(colors_list)
@@ -117,7 +116,7 @@ def update_tableau_pref_file(dirname: str = '.') -> None:
             # Check if cmap is in entries_dict
             if cmap not in entries_dict:
                 # If not, obtain the entire entry
-                idx = sub_contents.find('cmr.'+cmap)
+                idx = sub_contents.find(f'cmr.{cmap}')
                 start_idx_entry = idx-25
                 match = re.search(r"<\/color-palette>\n",
                                   sub_contents[start_idx_entry:])
@@ -130,7 +129,7 @@ def update_tableau_pref_file(dirname: str = '.') -> None:
         # Search this sub_contents string for all strings in entries_dict
         for cmap, cmap_entry in dict(entries_dict).items():
             # Check if this colormap name already exists
-            idx = sub_contents.find('cmr.'+cmap)
+            idx = sub_contents.find(f'cmr.{cmap}')
             if(idx != -1):
                 # If so, obtain the entire entry
                 start_idx_entry = idx-25

@@ -43,7 +43,7 @@ def create_cmap_app_overview():
     image_div = (1-X/2+X**5+Y**3)*np.exp(-X**2-Y**2)
 
     # Obtain all colormaps with their types
-    seq_cmaps = [cmap for cmap in cmap_cd['sequential'].values()]
+    seq_cmaps = list(cmap_cd['sequential'].values())
     div_cmaps = [cmap for cmap in cmap_cd['diverging'].values()
                  if not cmap.name.endswith('_r')]
     div_cmaps.extend([cmap for cmap in cmap_cd['cyclic'].values()
@@ -137,7 +137,7 @@ def create_cmap_app_overview():
 
 
 # %% MAIN SCRIPT
-if(__name__ == '__main__'):
+if (__name__ == '__main__'):
     # Obtain path to .jscm-file
     jscm_path = path.abspath(sys.argv[1])
 
@@ -179,7 +179,7 @@ if(__name__ == '__main__'):
 
     # Check if provided cmap is a cyclic colormap
     # If so, obtain its shifted (reversed) versions as well
-    if(cmtype == 'cyclic'):
+    if (cmtype == 'cyclic'):
         # Determine the central value index of the colormap
         idx = len(rgb)//2
 
@@ -187,7 +187,7 @@ if(__name__ == '__main__'):
         rgb_s = np.concatenate([rgb[idx:], rgb[:idx]], axis=0)
 
         # Register this colormap as well
-        register_cmap(name+'_s', rgb_s)
+        register_cmap(f'{name}_s', rgb_s)
 
         # Set cmtype to 'diverging' for the remainder of this script
         cmtype = 'diverging'
@@ -196,7 +196,7 @@ if(__name__ == '__main__'):
     create_cmap_mod(name, save_dir=name)
 
     # Create colormap figure
-    view_cmap('cmr.'+name, savefig="{0}/{0}.png".format(name))
+    view_cmap(f'cmr.{name}', savefig="{0}/{0}.png".format(name))
 
     # Create txt-file with colormap data
     np.savetxt("cm_{0}.txt".format(name), rgb, fmt='%.8f')
